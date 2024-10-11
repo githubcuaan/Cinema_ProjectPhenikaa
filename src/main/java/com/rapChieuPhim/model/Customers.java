@@ -6,14 +6,14 @@ package com.rapChieuPhim.model;
  * @author DinhAn
  */
 public class Customers {
-    private String id;
+    private int id;
     private String name;
     private String email;
     private String phone;
     private String username;
     private String password;
 
-    public Customers(String id, String name, String email, String phone)
+    public Customers(int id, String name, String email, String phone)
     {
         this.id = id;
         this.name = name;
@@ -21,7 +21,7 @@ public class Customers {
         this.phone = phone; 
     }
     
-    public Customers(String id, String name, String email, String phone, String username, String password) {
+    public Customers(int id, String name, String email, String phone, String username, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -30,11 +30,11 @@ public class Customers {
         this.password = password;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

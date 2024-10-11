@@ -6,31 +6,32 @@ package com.rapChieuPhim.model;
  * @author DinhAn
  */
 public class Employee {
-    private String id;
+    private int id;
     private String name;
     private String email;
     private String phone;
-    private String address;
     private String role;
     private String salary;
     private String password;
+    private String username;
 
-    public Employee(String id, String name, String email, String phone, String address, String role, String salary, String password) {
+    public Employee(int id, String name, String email, String phone, String role, String salary, String password, String username) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
-        this.address = address;
         this.role = role;
         this.salary = salary;
         this.password = password;
+        this.username = username;
+
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -57,15 +58,7 @@ public class Employee {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
+    
     public String getRole() {
         return role;
     }
@@ -88,6 +81,14 @@ public class Employee {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
     
 }

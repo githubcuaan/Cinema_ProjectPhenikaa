@@ -5,10 +5,10 @@ import java.util.List;
 
 public interface ICustomerDAO {
     List<Customers> getAllCustomers();
-    Customers getCustomerById(String id);
+    Customers getCustomerById(int id);
     void addCustomer(Customers customer);
     void updateCustomer(Customers customer);
-    void deleteCustomer(String id);
+    void deleteCustomer(int id);
     Customers login(String username, String password);
-    void register(Customers customer);
+    boolean register(String username, String email, String password);
 }

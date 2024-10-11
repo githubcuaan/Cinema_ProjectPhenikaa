@@ -74,6 +74,7 @@ public class LoginFrame extends javax.swing.JFrame {
                 bg.revalidate();  // Update layout
             }
 
+            //change login and register - sau mỗi lần animation kết thúc thì đảo isLogin
             @Override
             public void end() {
                 isLogin = !isLogin;

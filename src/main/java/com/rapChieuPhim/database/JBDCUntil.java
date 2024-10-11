@@ -16,7 +16,7 @@ public class JBDCUntil {
         
         try {
             //tạo thông số
-            String url = "jdbc:mysql://localhost:3306/demove";
+            String url = "jdbc:mysql://localhost:3306/cinema";
             String user = "root";
             String password = "Dinhan.0321@";
             

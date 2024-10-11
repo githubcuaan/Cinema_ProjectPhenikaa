@@ -23,7 +23,7 @@ public class CustomersDAO implements ICustomerDAO {
         try (PreparedStatement statement = connection.prepareStatement(query);
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                String id = resultSet.getString("id");
+                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String email = resultSet.getString("email");
                 String phone = resultSet.getString("phone");
@@ -37,11 +37,11 @@ public class CustomersDAO implements ICustomerDAO {
 
     //lấy thông tin khách hàng theo id
     @Override
-    public Customers getCustomerById(String id) {
+    public Customers getCustomerById(int id) {
         String query = "SELECT * FROM customers WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) 
         {
-            statement.setString(1, id);
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) 
             {
@@ -61,12 +61,14 @@ public class CustomersDAO implements ICustomerDAO {
     //thêm khách hàng
     @Override
     public void addCustomer(Customers customer) {
-        String query = "INSERT INTO customers (id, name, email, phone) VALUES (?, ?, ?, ?)";
+        String query = "INSERT INTO customers (id, name, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, customer.getId());
+            statement.setInt(1, customer.getId());
             statement.setString(2, customer.getName());
             statement.setString(3, customer.getEmail());
             statement.setString(4, customer.getPhone());
+            statement.setString(5, customer.getUsername());
+            statement.setString(6, customer.getPassword());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -76,12 +78,14 @@ public class CustomersDAO implements ICustomerDAO {
     //cập nhật thông tin khách hàng
     @Override
     public void updateCustomer(Customers customer) {
-        String query = "UPDATE customers SET name = ?, email = ?, phone = ? WHERE id = ?";
+        String query = "UPDATE customers SET name = ?, email = ?, phone = ?, username = ?, password = ? WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, customer.getName());
             statement.setString(2, customer.getEmail());
             statement.setString(3, customer.getPhone());
-            statement.setString(4, customer.getId());
+            statement.setString(4, customer.getUsername());
+            statement.setString(5, customer.getPassword());
+            statement.setInt(6, customer.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,10 +94,10 @@ public class CustomersDAO implements ICustomerDAO {
 
     //xóa khách hàng theo id
     @Override
-    public void deleteCustomer(String id) {
+    public void deleteCustomer(int id) {
         String query = "DELETE FROM customers WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, id);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -110,7 +114,7 @@ public class CustomersDAO implements ICustomerDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return new Customers(
-                        resultSet.getString("id"),
+                        resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("email"),
                         resultSet.getString("phone"),
@@ -127,19 +131,17 @@ public class CustomersDAO implements ICustomerDAO {
 
     //đăng ký
     @Override
-    public void register(Customers customer) {
-        String query = "INSERT INTO customers (id, name, email, phone, username, password) VALUES (?, ?, ?, ?, ?, ?)";
+    public boolean register(String username, String email, String password) {
+        String query = "INSERT INTO customers (username, email, password) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setString(1, customer.getId());
-            statement.setString(2, customer.getName());
-            statement.setString(3, customer.getEmail());
-            statement.setString(4, customer.getPhone());
-            statement.setString(5, customer.getUsername());
-            statement.setString(6, customer.getPassword());
-            statement.executeUpdate();
+            statement.setString(1, username);
+            statement.setString(2, email);
+            statement.setString(3, password);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
-
